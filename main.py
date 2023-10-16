@@ -1,0 +1,55 @@
+import random
+
+def generate_characters(num_letters, num_symbols, num_numbers, letters, symbols, numbers):
+    password_list = []
+    
+    for _ in range(num_letters):
+        password_list.append(random.choice(letters))
+    
+    for _ in range(num_symbols):
+        password_list.append(random.choice(symbols))
+    
+    for _ in range(num_numbers):
+        password_list.append(random.choice(numbers))
+    
+    return password_list
+
+def get_valid_input(prompt, valid_choices):
+    while True:
+        try:
+            user_input = int(input(prompt))
+            if user_input >= 0:
+                return user_input
+            else:
+                print("Please enter a positive integer.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    num_letters = get_valid_input("How many letters would you like in your password?\n", letters)
+    num_symbols = get_valid_input(f"How many symbols would you like?\n", symbols)
+    num_numbers = get_valid_input(f"How many numbers would you like?\n", numbers)
+
+    password_list = generate_characters(num_letters, num_symbols, num_numbers, letters, symbols, numbers)
+    random.shuffle(password_list)
+    password = ''.join(password_list)
+
+    print(f"Your password is: {password}")
+
+
+
+def regenerate_password():
+    regenerate = input("Do you want to regenerate a password? (yes/no)\n").lower()
+    if regenerate == "yes":
+        generate_password()
+    else:
+        print("Thank you for using the Password Generator!")
+
+if __name__ == "__main__":
+    print("Welcome to the Random Password Generator!")
+    generate_password()
+    regenerate_password()
